@@ -1,0 +1,10 @@
+connections:
+  user: "Fauz Syed"
+  pass: "Fireiscool123!"
+  hostname: "localhost"
+  port: "3306"
+  database: "password_manager"
+
+config_fp: "C:\\Users\\fauzs\\OneDrive\\Desktop\\Codes\\PyCharm Projects\\Password_manager\\common\\configs\\config.yml"
+
+schemas: ["users"]
