@@ -1,12 +1,12 @@
 import secrets
 import string
-from typing import Dict, Type
-from core.password_manager.password_manager import PasswordManager
+from typing import Dict, Type, Union, List
+from sqlalchemy.ext.declarative import declarative_base as Base
+from tabulate import tabulate
+
 from core.DataEncryption.pass_encrypt import verify_pass
 from core.Table_Instances.tables import User
 import pandas as pd
-
-session = PasswordManager.connect_to_db("password_manager")
 
 
 def authenticate(queried_user: [User], username, passw) -> bool:
@@ -19,13 +19,36 @@ def authenticate(queried_user: [User], username, passw) -> bool:
 		print("Wrong username")
 
 
-def print_query_table(table_config: Dict[str, Type], table):
-	get = session.query(table).all()
-	data = User.create_tables(get)
-	pd.set_option('display.max_columns', None)  # Show all columns
-	pd.set_option('display.expand_frame_repr', False)  # Prevent line wrapping
-	df = pd.DataFrame(data)
-	print(df)
+"""
+The print table works in two different ways: Type[Base] and List[Type[Base]]. In the Example we will use the class User 
+which is th class that defines the table in the ORM way of using SQLAlchemy.
+
+Union allows for one positional argument to be a possibility of a list of things: Type[User] or List[Type[User]]
+
+Type[User]: the actual class itself and not the instance of the class. A blueprint for an instance.
+	- User(UserID, Username, Email, ... )
+List[Type[User]]: A list of of different blueprints that are based on the User class
+	- [
+	   User(UserID, Username, Email, ... ), 
+	   User(UserID, Username, Email, ... ), 
+	   User(UserID, Username, Email, ...),
+	   ...
+	   ]
+
+
+"""
+
+
+def print_table(query: Union[Type[Type], List[Type[Type]]], table_name: Base):
+	table_data = []
+	if isinstance(query, List):
+		for row in query:
+			row_data = [getattr(row, column.name) for column in table_name.__table__.columns]
+			table_data.append(row_data)
+	elif isinstance(query, table_name):
+		table_data.append([getattr(query, column.name) for column in table_name.__table__.columns])
+
+	print(tabulate(table_data, headers=table_name.__table__.columns.keys(), tablefmt='sql'))
 
 
 def generate_salt(length=16):

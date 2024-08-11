@@ -16,15 +16,4 @@ class User(Base):
 	CreatedAt = Column(TIMESTAMP, server_default=func.current_timestamp(), nullable=False)
 	UpdatedAt = Column(TIMESTAMP, server_default=func.current_timestamp(), onupdate=func.current_timestamp(),
 					   nullable=False)
-
-	def create_tables(self, query):
-		data = [{
-			'UserID': query.UserID,
-			'Username': query.Username,
-			'Email': query.Email,
-			'HashedPassword': query.HashedPassword,
-			'Salt': query.Salt,
-			'CreatedAt': query.CreatedAt,
-			'UpdatedAt': query.UpdatedAt
-			}]
-		return data
+	columns_to_display = ['UserID', 'Username', 'HashedPassword', 'Email', 'Salt']

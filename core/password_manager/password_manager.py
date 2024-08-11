@@ -2,15 +2,14 @@ import os
 import secrets
 import string
 from pathlib import Path
-
+import argon2
 import argon2.exceptions
+from sqlalchemy.dialects.mysql import pymysql
 
 from core.password_manager.helper_funcs import *
 import sqlalchemy
-
 from core.Table_Instances.tables import User
 from sqlalchemy.orm import sessionmaker
-
 from core.DataEncryption.pass_encrypt import hasher, verify_pass
 from sqlalchemy import create_engine, text
 import pandas as pd
@@ -67,21 +66,24 @@ class PasswordManager:
 			self.hook.commit()
 		except sqlalchemy.exc.IntegrityError as ie:
 			self.hook.rollback()
-			print("User already has been added")
+			error = str(ie)
+			print(f"{error.splitlines()[0]}")
+
 
 	def get_user_data(self, username, passw):
-		user = self.hook.query(User).filter_by(Username=username).first()
-		passw = user.Salt + passw
+		query = self.hook.query(User).filter_by(Username=username).first()
 		try:
-			authenticate(user, username, passw)
-
+			passw = query.Salt + passw
+			authenticate(query, username, passw)
+			print_table(query, User)
 		except Exception as VM:
-			print(f"{VM}")
+			print(f"Error: {str(VM).splitlines()}")
 
 
-t = "C:\\Users\\fauzs\\OneDrive\\Desktop\\Codes\\PyCharm Projects\\Password_manager\\common\\configs\\config.yml"
+t = "C:\\Users\\fauzs\\OneDrive\\Desktop\\Codes\\Projects 2024\\Password_Manager\\common\\configs\\config.yml"
 table = ["users"]
 test = PasswordManager(t, "password_manager")
 # test.truncate_data(table)
-test.insert_users_data(Username="FauzSyed", password="Fireiscool123!", Email="fauz.syed234@gmail.com")
-test.get_user_data("FauzSyed", "Fireiscool123!")
+test.insert_users_data(Username="zainub", password="hello!", Email="zgirl@gmail.com")
+test.insert_users_data(Username="t", password="sbfz2009!", Email="bin@gmail.com")
+test.get_user_data("zainub", "hello!")
