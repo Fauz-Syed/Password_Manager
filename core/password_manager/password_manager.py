@@ -5,7 +5,7 @@ from pathlib import Path
 import argon2
 import argon2.exceptions
 from sqlalchemy.dialects.mysql import pymysql
-
+from colorama import Fore, Back, Style
 from core.password_manager.helper_funcs import *
 import sqlalchemy
 from core.Table_Instances.tables import User
@@ -19,35 +19,36 @@ from tabulate import tabulate
 
 class PasswordManager:
 
-	def __init__(self, config: str, database=None):
+	def __init__(self, config: str):
 		with open(config, 'r') as configs:
 			self.yml = yaml.safe_load(configs)
-		self.hook = self.connect_to_db(database)
+		self.__hook = self.connect_to_db()
 
-	def connect_to_db(self, database: str):
-		def mysql_connection(database: str):
+	def connect_to_db(self):
+		def mysql_connection():
 			con = self.yml.get('connections')
 			user = con.get('user')
 			passw = con.get('pass')
 			host = con.get('hostname')
 			port = con.get('port')
+			database = con.get('database')
 			if database is None:
 				database_uri = f"mysql+pymysql://{user}:{passw}@{host}:{port}"
 			else:
 				database_uri = f"mysql+pymysql://{user}:{passw}@{host}:{port}/{database}"
 			return database_uri
 
-		uri = mysql_connection(database)
+		uri = mysql_connection()
 		engine = create_engine(uri)
 		Session = sessionmaker(bind=engine)
 		return Session()
 
 	def query(self, query: str, op=None):
 		if op is None:
-			self.hook.execute(text(query))
+			self.__hook.execute(text(query))
 		else:
-			self.hook.execute()
-		self.hook.commit()
+			self.__hook.execute()
+		self.__hook.commit()
 
 	def truncate_data(self, tables):
 		for table in tables:
@@ -62,28 +63,24 @@ class PasswordManager:
 		hashpass = salt + password
 		new_user = User(Username=Username, HashedPassword=hasher(hashpass), Email=Email, Salt=salt)
 		try:
-			self.hook.add(new_user)
-			self.hook.commit()
+			self.__hook.add(new_user)
+			self.__hook.commit()
+			print(f"{Fore.GREEN}Account successfully created: {new_user.Username}{Fore.RESET}")
 		except sqlalchemy.exc.IntegrityError as ie:
-			self.hook.rollback()
+			self.__hook.rollback()
 			error = str(ie)
-			print(f"{error.splitlines()[0]}")
-
+			print(f"<Insert_user_Data> Error:{Fore.LIGHTRED_EX}{error.splitlines()[0]}{Fore.RESET}")
+			return False
+		return True
 
 	def get_user_data(self, username, passw):
-		query = self.hook.query(User).filter_by(Username=username).first()
+		query = self.__hook.query(User).filter_by(Username=username).first()
 		try:
 			passw = query.Salt + passw
 			authenticate(query, username, passw)
 			print_table(query, User)
 		except Exception as VM:
-			print(f"Error: {str(VM).splitlines()}")
+			print(f"<get_user_data> Error: {Fore.LIGHTRED_EX}{str(VM).splitlines()}{Fore.RESET}")
 
 
-t = "C:\\Users\\fauzs\\OneDrive\\Desktop\\Codes\\Projects 2024\\Password_Manager\\common\\configs\\config.yml"
-table = ["users"]
-test = PasswordManager(t, "password_manager")
-# test.truncate_data(table)
-test.insert_users_data(Username="zainub", password="hello!", Email="zgirl@gmail.com")
-test.insert_users_data(Username="t", password="sbfz2009!", Email="bin@gmail.com")
-test.get_user_data("zainub", "hello!")
+
