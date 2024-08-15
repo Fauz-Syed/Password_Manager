@@ -8,10 +8,11 @@ from sqlalchemy.dialects.mysql import pymysql
 from colorama import Fore, Back, Style
 from core.password_manager.helper_funcs import *
 import sqlalchemy
-from core.Table_Instances.tables import User
+from core.Table_Instances.tables import *
 from sqlalchemy.orm import sessionmaker
 from core.DataEncryption.pass_encrypt import hasher, verify_pass
 from sqlalchemy import create_engine, text
+from typing import Dict
 import pandas as pd
 import yaml
 from tabulate import tabulate
@@ -78,9 +79,33 @@ class PasswordManager:
 		try:
 			passw = query.Salt + passw
 			authenticate(query, username, passw)
-			print_table(query, User)
+			return query, True
 		except Exception as VM:
 			print(f"<get_user_data> Error: {Fore.LIGHTRED_EX}{str(VM).splitlines()}{Fore.RESET}")
+		return None, False
+
+	"""
+	Insert_password is desigend to take user input and create it into a config dictionary. 
+	"""
+	def insert_password_entry(self, passw: Dict[str, str], user: Type[User]):
+
+		if passw is not None:
+			web_username = passw['web_username']
+			web_password = passw['web_password']
+			website = passw['website']
+			desc = passw['desc']
+			new_password = PasswordTable(Website=website, Web_Username=web_username, EncryptedPassword=web_password, Note=desc)
+			user.entries.append(new_password)
+			self.__hook.commit()
+			print(f"{Fore.GREEN} Password successfully inserted for:\n website - {website}\nweb_user - {web_username} {Fore.RESET}")
+		query = self.__hook.query(PasswordTable.EntryID, User.Username, PasswordTable.Website, PasswordTable.Web_Username).join(PasswordTable).all()
+		print_table(query=query, header=["Username", "Website", "Web_Username"])
 
 
-
+# file = "C:\\Users\\fauzs\\OneDrive\\Desktop\\Codes\\Projects 2024\\Password_Manager\\common\\configs\\config.yml"
+#
+# test = PasswordManager(file)
+# test.truncate_data(table)
+# test.insert_users_data(Username="zainub", password="hello!", Email="zgirl@gmail.com")
+# test.insert_users_data(Username="t", password="sbfz2009!", Email="bin@gmail.com")
+# test.get_user_data("zainub", "hello!")

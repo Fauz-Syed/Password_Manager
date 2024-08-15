@@ -1,10 +1,16 @@
+import time
+
+import keyboard
+
 import core.password_manager.password_manager as pm
 from core.password_manager.helper_funcs import username_checks, password_checks, email_checks
+from core.DataEncryption.pass_encrypt import hasher, verify_pass
 import os
 from colorama import Fore, Back, Style
+from common.configs.config_file import file
+
 
 # table = ["users"]
-file = "C:\\Users\\fauzs\\OneDrive\\Desktop\\Codes\\Projects 2024\\Password_Manager\\common\\configs\\config.yml"
 
 
 # test = pm.PasswordManager(file, "password_manager")
@@ -56,4 +62,26 @@ def create_new_user():
 				print(f"<create_new_user> An error occurred: {e}")
 
 
-create_new_user()
+def add_passw():
+	existing_user = None
+	passw = None
+	log_in = True
+	manager = pm.PasswordManager(file)
+	bol = False
+	while not bol:
+		existing_user, bol = manager.get_user_data(input("Username Log in: "), input("Password Log in: "))
+
+	if input("insert?") == "yes":
+		if existing_user is not None:
+			passw = {
+				"website": input("Enter the website you would like to save password for: "),
+				"web_username": input("Enter your username: "),
+				"web_password": hasher(input("Enter your password: ")),
+				"desc": input("enter your description: ")
+			}
+
+	manager.insert_password_entry(passw, existing_user)
+
+
+# create_new_user()
+add_passw()

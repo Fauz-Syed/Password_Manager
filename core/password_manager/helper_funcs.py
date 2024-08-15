@@ -1,11 +1,14 @@
 import secrets
 import string
 from typing import Dict, Type, Union, List
+from common.configs.config_file import file
+from sqlalchemy import text
 from sqlalchemy.ext.declarative import declarative_base as Base
 from tabulate import tabulate
 from colorama import Fore, Back, Style
 from core.DataEncryption.pass_encrypt import verify_pass
 from core.Table_Instances.tables import User
+import core.password_manager.password_manager as pm
 import re
 import pandas as pd
 
@@ -40,16 +43,27 @@ List[Type[User]]: A list of of different blueprints that are based on the User c
 """
 
 
-def print_table(query: Union[Type[Type], List[Type[Type]]], table_name: Base):
+def print_table(table_name: Base = None, query: Union[Type[Type], List[Type[Type]]] = None,  header: List[str] = None):
 	table_data = []
-	if isinstance(query, List):
+	if query is not None and header is not None:
+		print(tabulate(query, headers=header, tablefmt="pretty"))
+	elif query is None and table_name is not None:
+		query = pm.PasswordManager(file).connect_to_db()
+		table = query.query(table_name).all()
+		for row in table:
+			row_data = [getattr(row, column.name) for column in table_name.__table__.columns]
+			table_data.append(row_data)
+		print(tabulate(table_data, headers=table_name.__table__.columns.keys(), tablefmt='sql'))
+	elif isinstance(query, List):
 		for row in query:
 			row_data = [getattr(row, column.name) for column in table_name.__table__.columns]
 			table_data.append(row_data)
+		print(tabulate(table_data, headers=table_name.__table__.columns.keys(), tablefmt='sql'))
+
 	elif isinstance(query, table_name):
 		table_data.append([getattr(query, column.name) for column in table_name.__table__.columns])
+		print(tabulate(table_data, headers=table_name.__table__.columns.keys(), tablefmt='sql'))
 
-	print(tabulate(table_data, headers=table_name.__table__.columns.keys(), tablefmt='sql'))
 
 
 def generate_salt(length=16):
