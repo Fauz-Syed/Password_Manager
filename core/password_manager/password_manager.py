@@ -1,11 +1,14 @@
 import os
 import secrets
 import string
+import time
 from pathlib import Path
 import argon2
 import argon2.exceptions
 from sqlalchemy.dialects.mysql import pymysql
 from colorama import Fore, Back, Style
+
+from common.configs.config_file import file
 from core.password_manager.helper_funcs import *
 import sqlalchemy
 from core.Table_Instances.tables import *
@@ -51,10 +54,11 @@ class PasswordManager:
 			self.__hook.execute()
 		self.__hook.commit()
 
-	def truncate_data(self, tables):
-		for table in tables:
-			sql = f"TRUNCATE TABLE {table}"
-			self.query(sql)
+	def truncate_data(self, table):
+		sql = text(f"DELETE FROM {table}")
+		self.__hook.execute(sql)
+		self.__hook.commit()
+		print("Table truncated")
 
 	def get_all_tables(self):
 		return self.yml.get('schemas')
@@ -74,38 +78,81 @@ class PasswordManager:
 			return False
 		return True
 
+	def duplicate_check(self, username: str, email: str):
+		df = self._get_all_users()
+		if email in df['Email'].values:
+			return True
+		if username in df['Username'].values:
+			return True
+		return False
+
 	def get_user_data(self, username, passw):
-		query = self.__hook.query(User).filter_by(Username=username).first()
+		# query = self.__hook.query(User).filter_by(Username=username).first()
+		query = text(f"SELECT * FROM users WHERE Username= :username")
+		stmt = self.__hook.execute(query, {'username': username})
+		df = pd.DataFrame(stmt.fetchall())
 		try:
-			passw = query.Salt + passw
-			authenticate(query, username, passw)
-			return query, True
+			passw = df['Salt'].item() + passw
+			if authenticate(df, username, passw):
+				print(f"{Fore.GREEN}Authenticated Successfully: {username}{Style.RESET_ALL}")
+				return df
 		except Exception as VM:
 			print(f"<get_user_data> Error: {Fore.LIGHTRED_EX}{str(VM).splitlines()}{Fore.RESET}")
-		return None, False
+		return False
+
+	def log_in(self, username, passw, show_data="do not"):
+		if username == "  ":
+			return None
+		result = self.get_user_data(username, passw)
+		if result is False:
+			raise Exception(f"<log_in> error logging in")
+		if show_data == "show":
+			print(f"{Fore.BLUE}Welcome {username}, to the Password Manager homepage.{Fore.RESET}")
+			time.sleep(1)
+			print_table(result[["UserID", "Username", "CreatedAt"]])
+
+		return result
 
 	"""
 	Insert_password is desigend to take user input and create it into a config dictionary. 
 	"""
-	def insert_password_entry(self, passw: Dict[str, str], user: Type[User]):
 
-		if passw is not None:
-			web_username = passw['web_username']
-			web_password = passw['web_password']
-			website = passw['website']
-			desc = passw['desc']
-			new_password = PasswordTable(Website=website, Web_Username=web_username, EncryptedPassword=web_password, Note=desc)
-			user.entries.append(new_password)
+	def insert_password_entry(self, passw_config: Dict[str, str]):
+		inserted = False
+		if passw_config is not None:
+			query = text(f"Insert into passwordentries (UserID, Website, Web_Username, EncryptedPassword, Note) "
+						 f"Values (:UserID, :website, :web_username, :web_password, :desc)")
+			stmt = self.__hook.execute(query, passw_config)
 			self.__hook.commit()
-			print(f"{Fore.GREEN} Password successfully inserted for:\n website - {website}\nweb_user - {web_username} {Fore.RESET}")
-		query = self.__hook.query(PasswordTable.EntryID, User.Username, PasswordTable.Website, PasswordTable.Web_Username).join(PasswordTable).all()
-		print_table(query=query, header=["Username", "Website", "Web_Username"])
+			print(f"{Fore.GREEN}Password successfully inserted for:\nwebsite - {passw_config['website']}\nweb_user - "
+				  f"{passw_config['web_username']} {Fore.RESET}")
+
+	def print_user_passwords(self, UserID):
+		print("PM print: ", UserID, "\n--------------------------------------------")
+		query = text(
+			f"SELECT users.Username, Website, Web_Username, EncryptedPassword From users join passwordentries pe on users.UserID = pe.UserID Where users.UserID = :UserID;")
+		stmt = self.__hook.execute(query, {'UserID': UserID})
+		pass_df = pd.DataFrame(stmt.fetchall())
+		print_table(pass_df)
+
+	def print_specifc_passwords(self, UserID, spec_web):
+		query = text(
+			"SELECT users.Username, Website, Web_Username, EncryptedPassword FROM users JOIN passwordentries pe ON "
+			"users.UserID = pe.UserID WHERE Website = :spec_web and users.UserID = :UserID;")
+		stmt = self.__hook.execute(query, {"UserID": UserID, "spec_web": spec_web})
+		pass_df = pd.DataFrame(stmt.fetchall())
+		print_table(pass_df)
+
+	def _get_all_users(self):
+		query = text("SELECT * FROM users;")
+		stmt = self.__hook.execute(query)
+		return pd.DataFrame(stmt.fetchall())
+
+	def email_search(self, email):
+		query = text("SELECT * FROM users WHERE Email = :email;")
+		stmt = self.__hook.execute(query, {"email": email})
+		return pd.DataFrame(stmt.fetchall())
 
 
-# file = "C:\\Users\\fauzs\\OneDrive\\Desktop\\Codes\\Projects 2024\\Password_Manager\\common\\configs\\config.yml"
-#
-# test = PasswordManager(file)
-# test.truncate_data(table)
-# test.insert_users_data(Username="zainub", password="hello!", Email="zgirl@gmail.com")
-# test.insert_users_data(Username="t", password="sbfz2009!", Email="bin@gmail.com")
-# test.get_user_data("zainub", "hello!")
+pm = PasswordManager(file)
+

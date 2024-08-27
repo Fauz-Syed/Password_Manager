@@ -2,6 +2,7 @@ from typing import Dict
 from sqlalchemy import Column, Integer, String, TIMESTAMP, func, Text, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+
 Base = declarative_base()
 
 
@@ -15,7 +16,7 @@ class User(Base):
 	CreatedAt = Column(TIMESTAMP, server_default=func.current_timestamp(), nullable=False)
 	UpdatedAt = Column(TIMESTAMP, server_default=func.current_timestamp(), onupdate=func.current_timestamp(),
 					   nullable=False)
-
+	isAdmin = Column(Integer, nullable=False)
 	entries = relationship("PasswordTable", cascade="all, delete, delete-orphan")
 	# users = relationship("PasswordTable", cascade="all, delete, delete-orphan")
 	columns_to_display = ['UserID', 'Username', 'HashedPassword', 'Email', 'Salt']

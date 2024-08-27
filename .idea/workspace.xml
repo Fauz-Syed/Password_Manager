@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2c019694-411d-4f80-89b0-112a92a1ef14" name="Changes" comment="updated the add_passw funtion to take input from user and insert the password into the users account">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/2862c2b6-8b05-49c2-90fb-c706419efed3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/2862c2b6-8b05-49c2-90fb-c706419efed3/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/2862c2b6-8b05-49c2-90fb-c706419efed3/storage_v2/_src_/schema/mysql.osA4Bg.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/2862c2b6-8b05-49c2-90fb-c706419efed3/storage_v2/_src_/schema/password_manager.Cab36w.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/2862c2b6-8b05-49c2-90fb-c706419efed3/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/Interface/Text_Interface/main_text.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Interface/Text_Interface/text_interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/Interface/Text_Interface/text_interface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Table_Instances/tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/Table_Instances/tables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/password_manager/helper_funcs.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/password_manager/helper_funcs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/password_manager/password_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/password_manager/password_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/create_tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/create_tables.sql" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" show_ignored="true">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2kPE7DzKBmlos8sAusX4lXqEeY1" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+    <option name="sortByType" value="true" />
+    <option name="sortKey" value="BY_TYPE" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.Main_Text_Interface.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Text_interface.executor&quot;: &quot;Run&quot;,
+    &quot;Python.database_tests.executor&quot;: &quot;Run&quot;,
+    &quot;Python.helper_funcs.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_text.executor&quot;: &quot;Run&quot;,
+    &quot;Python.pass_encrypt.executor&quot;: &quot;Run&quot;,
+    &quot;Python.password_manager.executor&quot;: &quot;Run&quot;,
+    &quot;Python.text_interface.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/fauzs/OneDrive/Desktop/Codes/Projects 2024/Password_Manager/core/Interface/Text_Interface/main_text.py&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ],
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect&quot;: [
+      &quot;MySQL&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\fauzs\OneDrive\Desktop\Codes\Projects 2024\Password_Manager\core\Interface\Text_Interface" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.Main_Text_Interface">
+    <configuration name="Main_Text_Interface" type="PythonConfigurationType" factoryName="Python">
+      <module name="Password_Manager" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12 (Password_Manager)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/Interface/Text_Interface/main_text.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Text_interface" type="PythonConfigurationType" factoryName="Python">
+      <module name="Password_Manager" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12 (Password_Manager)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/Interface/Text_Interface/text_interface.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="password_manager" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="Password_Manager" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12 (Password_Manager)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/password_manager/password_manager.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.password_manager" />
+      <item itemvalue="Python.Text_interface" />
+      <item itemvalue="Python.Main_Text_Interface" />
+    </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-50da183f06c8-2887949eec09-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.13135.95" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2c019694-411d-4f80-89b0-112a92a1ef14" name="Changes" comment="" />
+      <created>1723176641684</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1723176641684</updated>
+      <workItem from="1723176642927" duration="346000" />
+      <workItem from="1723176999341" duration="24730000" />
+      <workItem from="1723603094482" duration="22242000" />
+      <workItem from="1723933915582" duration="13228000" />
+      <workItem from="1724327861033" duration="22850000" />
+    </task>
+    <task id="LOCAL-00001" summary="commit the env">
+      <option name="closed" value="true" />
+      <created>1723233461819</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1723233461819</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Created the print_table function that can print a single row query or a whole table">
+      <option name="closed" value="true" />
+      <created>1723392537325</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1723392537325</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added the checks for the create new user in text interface.">
+      <option name="closed" value="true" />
+      <created>1723509299420</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1723509299420</updated>
+    </task>
+    <task id="LOCAL-00004" summary="updated the add_passw funtion to take input from user and insert the password into the users account">
+      <option name="closed" value="true" />
+      <created>1723687130299</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1723687130299</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="commit the env" />
+    <MESSAGE value="Created the print_table function that can print a single row query or a whole table" />
+    <MESSAGE value="Added the checks for the create new user in text interface." />
+    <MESSAGE value="updated the add_passw funtion to take input from user and insert the password into the users account" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated the add_passw funtion to take input from user and insert the password into the users account" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Password_Manager$main_text.coverage" NAME="main_text Coverage Results" MODIFIED="1724251568113" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core/Interface/Text_Interface" />
+    <SUITE FILE_PATH="coverage/Password_Manager$password_manager.coverage" NAME="password_manager Coverage Results" MODIFIED="1724795623148" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Password_Manager$text_interface.coverage" NAME="text_interface Coverage Results" MODIFIED="1724248830408" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core/Interface/Text_Interface" />
+    <SUITE FILE_PATH="coverage/Password_Manager$pass_encrypt.coverage" NAME="pass_encrypt Coverage Results" MODIFIED="1724211055817" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core/DataEncryption" />
+    <SUITE FILE_PATH="coverage/Password_Manager$Main_Text_Interface.coverage" NAME="Main_Text_Interface Coverage Results" MODIFIED="1724802766281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Password_Manager$Text_interface.coverage" NAME="Text_interface Coverage Results" MODIFIED="1723687543897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Password_Manager$database_tests.coverage" NAME="database_tests Coverage Results" MODIFIED="1723231127489" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core/tests" />
+    <SUITE FILE_PATH="coverage/Password_Manager$helper_funcs.coverage" NAME="helper_funcs Coverage Results" MODIFIED="1724210963462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core/password_manager" />
+  </component>
+</project>

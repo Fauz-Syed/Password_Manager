@@ -1,21 +1,24 @@
+import re
 import secrets
 import string
-from typing import Dict, Type, Union, List
-from common.configs.config_file import file
-from sqlalchemy import text
-from sqlalchemy.ext.declarative import declarative_base as Base
-from tabulate import tabulate
-from colorama import Fore, Back, Style
-from core.DataEncryption.pass_encrypt import verify_pass
-from core.Table_Instances.tables import User
+import time
+from typing import Union
 import core.password_manager.password_manager as pm
-import re
 import pandas as pd
+from colorama import Fore, Style
+from sqlalchemy import Result
+from tabulate import tabulate
+
+from common.configs.config_file import file
+from core.DataEncryption.pass_encrypt import verify_pass
 
 
-def authenticate(queried_user: [User], username, passw) -> bool:
-	if username == queried_user.Username:
-		if verify_pass(queried_user.HashedPassword, passw):
+def authenticate(queried_user: pd.DataFrame, username, passw) -> bool:
+	if username == queried_user['Username'].item():
+		print(f"{Fore.GREEN}Username {username} is a match {Fore.RESET}")
+		time.sleep(1)
+		if verify_pass(queried_user['HashedPassword'].item(), passw):
+			print(f"{Fore.GREEN}Password for {username} is a match {Fore.RESET}")
 			return True
 		else:
 			print('Wrong password')
@@ -43,33 +46,17 @@ List[Type[User]]: A list of of different blueprints that are based on the User c
 """
 
 
-def print_table(table_name: Base = None, query: Union[Type[Type], List[Type[Type]]] = None,  header: List[str] = None):
-	table_data = []
-	if query is not None and header is not None:
-		print(tabulate(query, headers=header, tablefmt="pretty"))
-	elif query is None and table_name is not None:
-		query = pm.PasswordManager(file).connect_to_db()
-		table = query.query(table_name).all()
-		for row in table:
-			row_data = [getattr(row, column.name) for column in table_name.__table__.columns]
-			table_data.append(row_data)
-		print(tabulate(table_data, headers=table_name.__table__.columns.keys(), tablefmt='sql'))
-	elif isinstance(query, List):
-		for row in query:
-			row_data = [getattr(row, column.name) for column in table_name.__table__.columns]
-			table_data.append(row_data)
-		print(tabulate(table_data, headers=table_name.__table__.columns.keys(), tablefmt='sql'))
-
-	elif isinstance(query, table_name):
-		table_data.append([getattr(query, column.name) for column in table_name.__table__.columns])
-		print(tabulate(table_data, headers=table_name.__table__.columns.keys(), tablefmt='sql'))
-
+def print_table(stmt: Union[Result, pd.DataFrame] = None, frmt: str = "pretty", color=Fore.LIGHTMAGENTA_EX):
+	if isinstance(stmt, Result):
+		df = pd.DataFrame(stmt.fetchall(), columns=stmt.keys())
+		print(tabulate(df, headers=stmt.keys(), tablefmt=frmt))
+	if isinstance(stmt, pd.DataFrame):
+		print(f'{color}', tabulate(stmt, headers=stmt.keys(), tablefmt=frmt), f'{Style.RESET_ALL}')
 
 
 def generate_salt(length=16):
-	"""Generate a cryptographically secure random salt."""
 	alphabet = string.ascii_letters + string.digits + string.punctuation
-	return ''.join(secrets.choice(alphabet) for i in range(length))
+	return ''.join(secrets.choice(alphabet) for _ in range(length))
 
 
 def username_checks(username: str):
@@ -94,11 +81,14 @@ def password_checks(password: str, confirm: str):
 	return True
 
 
-def email_checks(email: str):
+def email_checks(email: str, username: str):
 	regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
 	if not re.match(regex, email):
 		raise ValueError(f"{Fore.LIGHTRED_EX} Invalid Email syntax provided. {Fore.RESET}")
 	domain = email.split('@')[1]
+	if pm.PasswordManager(file).duplicate_check(username=username, email=email):
+		return False
 	# if not validate_email(email, verify=True):
 	# 	raise ValueError(f"{Fore.LIGHTRED_EX} Provide a valid email{Fore.RESET}")
+
 	return True

@@ -14,7 +14,7 @@ CREATE TABLE PasswordEntries (
     EntryID INT PRIMARY KEY AUTO_INCREMENT,
     UserID INT,
     Website VARCHAR(255) NOT NULL,
-    Username VARCHAR(255),
+    Web_Username VARCHAR(255),
     EncryptedPassword TEXT NOT NULL,
     Note TEXT,
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
